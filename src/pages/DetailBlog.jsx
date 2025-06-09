@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import api from '../service/CustomAxios'; 
-import isAuthenticated from '../service/Auth'; 
+import React, { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import api from "../service/CustomAxios";
+import isAuthenticated from "../service/Auth";
 
 const DetailBlog = () => {
   const { id } = useParams();
@@ -10,15 +10,17 @@ const DetailBlog = () => {
 
   useEffect(() => {
     if (!isAuthenticated()) {
-      navigate('/login');
+      navigate("/login");
       return;
     }
     const fetchBlog = async () => {
       try {
-        const res = await api.get(`https://bpwindonesia-be-v2-938071808488.europe-west1.run.app/api/blogs/${id}`);
+        const res = await api.get(
+          `https://bpwindonesia-be-938071808488.europe-west1.run.app/api/blogs/${id}`
+        );
         setBlog(res.data);
       } catch (err) {
-        console.error('Failed to load blog detail:', err);
+        console.error("Failed to load blog detail:", err);
       }
     };
 
@@ -26,7 +28,11 @@ const DetailBlog = () => {
   }, [id]);
 
   if (!blog) {
-    return <div className="text-center py-20 text-gray-500">Memuat detail blog...</div>;
+    return (
+      <div className="text-center py-20 text-gray-500">
+        Memuat detail blog...
+      </div>
+    );
   }
 
   return (
@@ -40,11 +46,13 @@ const DetailBlog = () => {
 
         <div>
           <h1 className="text-3xl font-bold text-[#84281B]">{blog.title}</h1>
-          <p className="text-sm text-gray-500 mt-1">Dipublikasikan oleh Admin</p>
+          <p className="text-sm text-gray-500 mt-1">
+            Dipublikasikan oleh Admin
+          </p>
         </div>
 
         <div className="text-gray-700 leading-relaxed space-y-4">
-          {blog.content?.split('\n').map((para, idx) => (
+          {blog.content?.split("\n").map((para, idx) => (
             <p key={idx}>{para}</p>
           ))}
         </div>

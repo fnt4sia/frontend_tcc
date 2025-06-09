@@ -1,56 +1,82 @@
-import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { FaCalendarAlt, FaClock, FaMapMarkerAlt, FaEnvelope, FaInstagram, FaFacebook, FaLinkedin } from 'react-icons/fa';
-import api from '../service/CustomAxios'; 
-import isAuthenticated from '../service/Auth';
+import React, { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import {
+  FaCalendarAlt,
+  FaClock,
+  FaMapMarkerAlt,
+  FaEnvelope,
+  FaInstagram,
+  FaFacebook,
+  FaLinkedin,
+} from "react-icons/fa";
+import api from "../service/CustomAxios";
+import isAuthenticated from "../service/Auth";
+
+// Fungsi untuk decode JWT
+function parseJwt(token) {
+  try {
+    return JSON.parse(atob(token.split(".")[1]));
+  } catch (e) {
+    return null;
+  }
+}
 
 const DetailEvent = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [event, setEvent] = useState(null);
   const [isRegistered, setIsRegistered] = useState(false);
-  const userId = 2;
+  // Ambil userId dari access token
+  let userId = null;
+  const token = localStorage.getItem("access_token");
+  if (token) {
+    const payload = parseJwt(token);
+    userId = payload && (payload.id || payload.userId || payload.sub);
+  }
 
   useEffect(() => {
     if (!isAuthenticated()) {
-      navigate('/login');
+      navigate("/login");
       return;
     }
     const checkRSVP = async () => {
       try {
-        const res = await api.get('/rsvps');
+        const res = await api.get("/rsvps");
         const alreadyRegistered = res.data.find(
-          (rsvp) => rsvp.userId === userId && String(rsvp.eventId) === String(id)
+          (rsvp) =>
+            rsvp.userId === userId && String(rsvp.eventId) === String(id)
         );
         setIsRegistered(!!alreadyRegistered);
       } catch (err) {
-        console.error('Error checking RSVP:', err);
+        console.error("Error checking RSVP:", err);
       }
     };
 
     const fetchEvent = async () => {
       try {
-        const res = await api.get(`https://bpwindonesia-be-v2-938071808488.europe-west1.run.app/api/events/${id}`);
+        const res = await api.get(
+          `https://bpwindonesia-be-938071808488.europe-west1.run.app/api/events/${id}`
+        );
         setEvent(res.data);
         checkRSVP();
       } catch (err) {
-        console.error('Failed to fetch event:', err);
+        console.error("Failed to fetch event:", err);
       }
     };
     fetchEvent();
-  }, [id]);
+  }, [id, userId]);
 
   const handleRSVP = async () => {
     try {
-      await api.post('/rsvps', {
+      await api.post("/rsvps", {
         userId: userId,
         eventId: id,
-        status: 'going',
+        status: "going",
       });
-      alert('Berhasil mendaftar ke event.');
+      alert("Berhasil mendaftar ke event.");
     } catch (err) {
-      console.error('RSVP error:', err);
-      alert('Gagal mendaftar.');
+      console.error("RSVP error:", err);
+      alert("Gagal mendaftar.");
     }
   };
 
@@ -68,8 +94,12 @@ const DetailEvent = () => {
           />
 
           <div className="mb-8">
-            <h2 className="text-xl font-semibold text-[#84281B] mb-2">Deskripsi</h2>
-            <p className="text-gray-700 leading-relaxed text-justify">{event.description}</p>
+            <h2 className="text-xl font-semibold text-[#84281B] mb-2">
+              Deskripsi
+            </h2>
+            <p className="text-gray-700 leading-relaxed text-justify">
+              {event.description}
+            </p>
           </div>
         </div>
 
@@ -99,7 +129,7 @@ const DetailEvent = () => {
               onClick={handleRSVP}
               disabled={isRegistered}
             >
-              {isRegistered ? 'Sudah Terdaftar' : 'Daftar Sekarang'}
+              {isRegistered ? "Sudah Terdaftar" : "Daftar Sekarang"}
             </button>
           </div>
 

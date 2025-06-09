@@ -23,10 +23,11 @@ const Login = () => {
         password,
       });
 
-      const { accessToken, refreshToken } = response.data;
+      const { accessToken, refreshToken, user } = response.data;
       localStorage.setItem('access_token', accessToken);
       localStorage.setItem('refresh_token', refreshToken);
       localStorage.setItem('username', username);
+      localStorage.setItem('user_id', user.id);
 
       navigate('/event');
     } catch (err) {

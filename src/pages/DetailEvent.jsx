@@ -9,7 +9,6 @@ const DetailEvent = () => {
   const navigate = useNavigate();
   const [event, setEvent] = useState(null);
   const [isRegistered, setIsRegistered] = useState(false);
-  const userId = 2;
 
   useEffect(() => {
     if (!isAuthenticated()) {
@@ -18,11 +17,12 @@ const DetailEvent = () => {
     }
     const checkRSVP = async () => {
       try {
+        const userId = localStorage.getItem('user_id');
         const res = await api.get('/rsvps');
         const alreadyRegistered = res.data.find(
-          (rsvp) => rsvp.userId === userId && String(rsvp.eventId) === String(id)
+          (rsvp) => String(rsvp.userId) === String(userId) && String(rsvp.eventId) === String(id)
         );
-        setIsRegistered(!!alreadyRegistered);
+        setIsRegistered(alreadyRegistered);
       } catch (err) {
         console.error('Error checking RSVP:', err);
       }
@@ -42,15 +42,15 @@ const DetailEvent = () => {
 
   const handleRSVP = async () => {
     try {
+      const userId = localStorage.getItem('user_id');
       await api.post('/rsvps', {
-        userId: userId,
+        userId: parseInt(userId),
         eventId: id,
         status: 'going',
       });
-      alert('Berhasil mendaftar ke event.');
+      window.location.href = '/events';
     } catch (err) {
       console.error('RSVP error:', err);
-      alert('Gagal mendaftar.');
     }
   };
 

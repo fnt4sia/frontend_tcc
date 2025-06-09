@@ -35,8 +35,8 @@ api.interceptors.response.use(
         return api(originalRequest); // retry original request
       } catch (err) {
         console.error('Refresh failed', err);
-        localStorage.removeItem('access_token');
-        // window.location.href = '/login';
+        localStorage.clear();
+        window.location.href = '/login';
       }
     }
 

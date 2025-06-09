@@ -4,6 +4,7 @@ import { HiMenu, HiX } from 'react-icons/hi';
 import logo from '../../assets/logo.png';
 import arrowButton from '../../assets/arrowbutton.png';
 import isAuthenticated from '../service/Auth';
+import api from '../service/CustomAxios';
 
 const Navbar = () => {
   const location = useLocation();
@@ -28,6 +29,12 @@ const Navbar = () => {
     navLinks.push({ name: 'Dashboard', path: '/dashboard' });
   }
 
+  const handleLogout = async () => {
+    localStorage.clear();
+    
+    window.location.href = '/login';
+  };
+
   return (
     <nav className="bg-white shadow-sm">
       <div className="flex items-center justify-between px-6 md:px-12 xl:px-32 py-4">
@@ -36,7 +43,7 @@ const Navbar = () => {
         </div>
 
         {/* Desktop Menu */}
-        <ul className="hidden md:flex gap-6 xl:gap-8 items-center">
+        <ul className="hidden md:flex gap-6 xl:gap-8 items-center flex-1 justify-center">
           {navLinks.map((link) => (
             <li key={link.path}>
               <Link
@@ -53,9 +60,16 @@ const Navbar = () => {
           ))}
         </ul>
 
-        {/* Register Button (Desktop) */}
-        {!isAuthenticated() && (
-          <div className="hidden md:flex">
+        {/* Right Action Button */}
+        <div className="hidden md:flex">
+          {isAuthenticated() ? (
+            <button
+              onClick={handleLogout}
+              className="text-[#84281B] border border-[#84281B] px-4 xl:px-5 py-2 xl:py-3 rounded-full font-medium shadow hover:bg-[#fbe8e6] transition-colors duration-200"
+            >
+              Logout
+            </button>
+          ) : (
             <Link
               to="/register"
               className="flex items-center gap-2 xl:gap-4 bg-[#84281B] text-white px-4 xl:px-5 py-2 xl:py-3 rounded-full font-medium shadow hover:bg-[#a03a2a] transition-colors duration-200"
@@ -63,8 +77,8 @@ const Navbar = () => {
               <p className="text-sm xl:text-base">Register Now</p>
               <img src={arrowButton} alt="Arrow Icon" className="h-4 xl:h-5" />
             </Link>
-          </div>
-        )}
+          )}
+        </div>
 
         {/* Mobile Menu Button */}
         <button className="md:hidden" onClick={() => setMenuOpen(!menuOpen)}>
@@ -93,16 +107,28 @@ const Navbar = () => {
             ))}
           </ul>
 
-          {!isAuthenticated() && (
-            <Link
-              to="/register"
-              onClick={() => setMenuOpen(false)}
-              className="mt-4 inline-flex items-center gap-2 bg-[#84281B] text-white px-4 py-2 rounded-full font-medium shadow hover:bg-[#a03a2a] transition-colors duration-200"
-            >
-              <p className="text-sm">Register Now</p>
-              <img src={arrowButton} alt="Arrow Icon" className="h-4" />
-            </Link>
-          )}
+          <div className="mt-4">
+            {isAuthenticated() ? (
+              <button
+                onClick={() => {
+                  setMenuOpen(false);
+                  handleLogout();
+                }}
+                className="w-full text-[#84281B] border border-[#84281B] px-4 py-2 rounded-full font-medium shadow hover:bg-[#fbe8e6] transition-colors duration-200"
+              >
+                Logout
+              </button>
+            ) : (
+              <Link
+                to="/register"
+                onClick={() => setMenuOpen(false)}
+                className="inline-flex items-center gap-2 bg-[#84281B] text-white px-4 py-2 rounded-full font-medium shadow hover:bg-[#a03a2a] transition-colors duration-200"
+              >
+                <p className="text-sm">Register Now</p>
+                <img src={arrowButton} alt="Arrow Icon" className="h-4" />
+              </Link>
+            )}
+          </div>
         </div>
       )}
     </nav>

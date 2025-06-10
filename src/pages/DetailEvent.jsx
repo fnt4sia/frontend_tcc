@@ -30,7 +30,9 @@ const DetailEvent = () => {
 
     const fetchEvent = async () => {
       try {
-        const res = await api.get(`https://bpwindonesia-be-v2-938071808488.europe-west1.run.app/api/events/${id}`);
+        const res = await api.get(
+          `https://bpwindonesia-be-938071808488.europe-west1.run.app/api/events/${id}`
+        );
         setEvent(res.data);
         checkRSVP();
       } catch (err) {

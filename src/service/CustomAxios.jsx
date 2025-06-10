@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'https://bpwindonesia-be-v2-938071808488.europe-west1.run.app/api',
+  baseURL: 'https://bpwindonesia-be-938071808488.europe-west1.run.app/api',
   withCredentials: true, 
 });
 
@@ -23,7 +23,7 @@ api.interceptors.response.use(
 
       try {
         const refreshRes = await axios.post(
-          'https://bpwindonesia-be-v2-938071808488.europe-west1.run.app/api/users/refresh-token',
+          'https://bpwindonesia-be-938071808488.europe-west1.run.app/api/users/refresh-token',
           {},
           { withCredentials: true }
         );

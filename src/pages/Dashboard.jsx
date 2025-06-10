@@ -3,7 +3,8 @@ import api from '../service/CustomAxios';
 import axios from 'axios';
 import isAuthenticated from '../service/Auth';
 
-const API_BASE = 'https://bpwindonesia-be-v2-938071808488.europe-west1.run.app/api';
+const API_BASE =
+  "https://bpwindonesia-be-938071808488.europe-west1.run.app/api";
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState('blog');

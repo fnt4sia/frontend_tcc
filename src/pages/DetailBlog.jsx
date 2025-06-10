@@ -15,7 +15,9 @@ const DetailBlog = () => {
     }
     const fetchBlog = async () => {
       try {
-        const res = await api.get(`https://bpwindonesia-be-v2-938071808488.europe-west1.run.app/api/blogs/${id}`);
+        const res = await api.get(
+          `https://bpwindonesia-be-938071808488.europe-west1.run.app/api/blogs/${id}`
+        );
         setBlog(res.data);
       } catch (err) {
         console.error('Failed to load blog detail:', err);

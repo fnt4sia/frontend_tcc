@@ -4,7 +4,13 @@ import tailwindcss from "@tailwindcss/vite";
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: "/",
   plugins: [react(), tailwindcss()],
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
+    },
+  },
   preview: {
     port: 5173,
     strictPort: true,
@@ -13,6 +19,6 @@ export default defineConfig({
     port: 5173,
     strictPort: true,
     host: true,
-    allowedHosts: ["https://bpwindonesia-fe-938071808488.europe-west1.run.app"],
+    allowedHosts: ["bpwindonesia-fe-938071808488.europe-west1.run.app"],
   },
 });

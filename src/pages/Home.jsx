@@ -1,4 +1,4 @@
-import landingPage from '../../assets/home.png';
+import landingPage from '../../assets/Home.png';
 import arrowButton from '../../assets/ArrowButton.png';
 
 const Home = () => {

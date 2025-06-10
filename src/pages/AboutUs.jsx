@@ -1,7 +1,7 @@
 import React from "react";
 import bigLogo from "../../assets/BigLogo.jpg";
 import rapatBPW from "../../assets/RapatBPW.png";
-import iconTarget from "../../assets/iconTarget.png";
+import iconTarget from "../../assets/IconTarget.png";
 
 const AboutUs = () => {
   return (

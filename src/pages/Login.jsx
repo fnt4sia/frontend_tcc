@@ -19,7 +19,7 @@ const Login = () => {
 
     try {
       const response = await axios.post(
-        "https://bpwindonesia-be-938071808488.europe-west1.run.app/api/users/login",
+        "https://bpwindonesia-be-dot-h-02-451302.et.r.appspot.com/api/users/login",
         {
           username,
           password,
@@ -42,18 +42,13 @@ const Login = () => {
   return (
     <div className="min-h-screen flex items-center justify-center px-4 py-12 md:px-12 lg:px-20 xl:px-32 bg-[#FEF5F5]">
       <div className="w-full max-w-md bg-white p-8 md:p-12 rounded-xl shadow-md">
-        <h1 className="text-2xl md:text-3xl font-bold text-[#84281B] mb-6 text-center">
-          Masuk ke Akun Anda
-        </h1>
+        <h1 className="text-2xl md:text-3xl font-bold text-[#84281B] mb-6 text-center">Masuk ke Akun Anda</h1>
         <p className="text-sm text-gray-600 mb-8 text-center">
           Selamat datang kembali! Silakan masuk untuk melanjutkan.
         </p>
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div>
-            <label
-              htmlFor="username"
-              className="block text-sm font-medium text-gray-700"
-            >
+            <label htmlFor="username" className="block text-sm font-medium text-gray-700">
               Username
             </label>
             <input
@@ -66,10 +61,7 @@ const Login = () => {
             />
           </div>
           <div>
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium text-gray-700"
-            >
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
               Password
             </label>
             <input
@@ -96,10 +88,7 @@ const Login = () => {
 
         <p className="text-sm text-center text-gray-600 mt-6">
           Belum punya akun?{" "}
-          <Link
-            to="/register"
-            className="text-[#84281B] font-medium hover:underline"
-          >
+          <Link to="/register" className="text-[#84281B] font-medium hover:underline">
             Daftar sekarang
           </Link>
         </p>

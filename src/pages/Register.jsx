@@ -27,7 +27,7 @@ const Register = () => {
 
     try {
       const response = await axios.post(
-        "https://bpwindonesia-be-938071808488.europe-west1.run.app/api/users/",
+        "https://bpwindonesia-be-dot-h-02-451302.et.r.appspot.com/api/users/",
         formData,
         { withCredentials: true }
       );
@@ -48,22 +48,14 @@ const Register = () => {
   return (
     <div className="min-h-screen flex items-center justify-center px-4 py-12 md:px-12 lg:px-20 xl:px-32 bg-[#FEF5F5]">
       <div className="w-full max-w-md bg-white p-8 md:p-12 rounded-xl shadow-md">
-        <h1 className="text-2xl md:text-3xl font-bold text-[#84281B] mb-6 text-center">
-          Daftar Akun Baru
-        </h1>
+        <h1 className="text-2xl md:text-3xl font-bold text-[#84281B] mb-6 text-center">Daftar Akun Baru</h1>
         <p className="text-sm text-gray-600 mb-8 text-center">
-          Bergabunglah dengan jaringan perempuan profesional dan pemimpin masa
-          depan di seluruh Indonesia.
+          Bergabunglah dengan jaringan perempuan profesional dan pemimpin masa depan di seluruh Indonesia.
         </p>
-        {error && (
-          <p className="text-sm text-red-600 text-center mb-4">{error}</p>
-        )}
+        {error && <p className="text-sm text-red-600 text-center mb-4">{error}</p>}
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label
-              htmlFor="username"
-              className="block text-sm font-medium text-gray-700"
-            >
+            <label htmlFor="username" className="block text-sm font-medium text-gray-700">
               Nama Lengkap
             </label>
             <input
@@ -76,10 +68,7 @@ const Register = () => {
             />
           </div>
           <div>
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-gray-700"
-            >
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
               Email
             </label>
             <input
@@ -92,10 +81,7 @@ const Register = () => {
             />
           </div>
           <div>
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium text-gray-700"
-            >
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
               Password
             </label>
             <input
@@ -120,10 +106,7 @@ const Register = () => {
 
         <p className="text-sm text-center text-gray-600 mt-6">
           Sudah punya akun?{" "}
-          <Link
-            to="/login"
-            className="text-[#84281B] font-medium hover:underline"
-          >
+          <Link to="/login" className="text-[#84281B] font-medium hover:underline">
             Masuk di sini
           </Link>
         </p>

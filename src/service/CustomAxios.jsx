@@ -1,12 +1,12 @@
-import axios from 'axios';
+import axios from "axios";
 
 const api = axios.create({
-  baseURL: 'https://bpwindonesia-be-v2-938071808488.europe-west1.run.app/api',
-  withCredentials: true, 
+  baseURL: "https://bpwindonesia-be-dot-h-02-451302.et.r.appspot.com/api",
+  withCredentials: true,
 });
 
 api.interceptors.request.use((config) => {
-  const token = localStorage.getItem('access_token');
+  const token = localStorage.getItem("access_token");
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
@@ -23,20 +23,20 @@ api.interceptors.response.use(
 
       try {
         const refreshRes = await axios.post(
-          'https://bpwindonesia-be-v2-938071808488.europe-west1.run.app/api/users/refresh-token',
+          "https://bpwindonesia-be-dot-h-02-451302.et.r.appspot.com/api/users/refresh-token",
           {},
           { withCredentials: true }
         );
 
         const newAccessToken = refreshRes.data.accessToken;
-        localStorage.setItem('access_token', newAccessToken);
+        localStorage.setItem("access_token", newAccessToken);
 
         originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
         return api(originalRequest); // retry original request
       } catch (err) {
-        console.error('Refresh failed', err);
+        console.error("Refresh failed", err);
         localStorage.clear();
-        window.location.href = '/login';
+        window.location.href = "/login";
       }
     }
 

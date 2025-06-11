@@ -2,7 +2,7 @@ import React from 'react';
 import iconLinkedin from '../../assets/IconLinkedin.png';
 import iconFacebook from '../../assets/IconFacebook.png';
 import iconInstagram from '../../assets/IconInstagram.png';
-import logo from '../../assets/logo.png';
+import logo from '../../assets/Logo.png';
 
 const Footer = () => {
   return (

@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { HiMenu, HiX } from 'react-icons/hi';
-import logo from '../../assets/logo.png';
-import arrowButton from '../../assets/arrowbutton.png';
-import isAuthenticated from '../service/Auth';
-import api from '../service/CustomAxios';
+import { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { HiMenu, HiX } from "react-icons/hi";
+import logo from "../../assets/Logo.png";
+import arrowButton from "../../assets/ArrowButton.png";
+import isAuthenticated from "../service/Auth";
+import api from "../service/CustomAxios";
 
 const Navbar = () => {
   const location = useLocation();
@@ -12,27 +12,27 @@ const Navbar = () => {
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    const username = localStorage.getItem('username');
-    if (username === 'admin') {
+    const username = localStorage.getItem("username");
+    if (username === "admin") {
       setIsAdmin(true);
     }
   }, []);
 
   const navLinks = [
-    { name: 'Beranda', path: '/' },
-    { name: 'Tentang', path: '/about-us' },
-    { name: 'Event', path: '/event' },
-    { name: 'Blog', path: '/blog' },
+    { name: "Beranda", path: "/" },
+    { name: "Tentang", path: "/about-us" },
+    { name: "Event", path: "/event" },
+    { name: "Blog", path: "/blog" },
   ];
 
   if (isAdmin) {
-    navLinks.push({ name: 'Dashboard', path: '/dashboard' });
+    navLinks.push({ name: "Dashboard", path: "/dashboard" });
   }
 
   const handleLogout = async () => {
     localStorage.clear();
-    
-    window.location.href = '/login';
+
+    window.location.href = "/login";
   };
 
   return (
@@ -50,8 +50,8 @@ const Navbar = () => {
                 to={link.path}
                 className={`text-base md:text-lg font-medium transition-colors duration-200 ${
                   location.pathname === link.path
-                    ? 'text-[#84281B]'
-                    : 'text-gray-600 hover:text-[#84281B]'
+                    ? "text-[#84281B]"
+                    : "text-gray-600 hover:text-[#84281B]"
                 }`}
               >
                 {link.name}
@@ -97,8 +97,8 @@ const Navbar = () => {
                   onClick={() => setMenuOpen(false)}
                   className={`block text-sm font-medium transition-colors duration-200 ${
                     location.pathname === link.path
-                      ? 'text-[#84281B]'
-                      : 'text-gray-600 hover:text-[#84281B]'
+                      ? "text-[#84281B]"
+                      : "text-gray-600 hover:text-[#84281B]"
                   }`}
                 >
                   {link.name}

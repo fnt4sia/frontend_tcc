@@ -1,8 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { FaCalendarAlt, FaClock, FaMapMarkerAlt, FaEnvelope, FaInstagram, FaFacebook, FaLinkedin } from 'react-icons/fa';
-import api from '../service/CustomAxios'; 
-import isAuthenticated from '../service/Auth';
+import React, { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import {
+  FaCalendarAlt,
+  FaClock,
+  FaMapMarkerAlt,
+  FaEnvelope,
+  FaInstagram,
+  FaFacebook,
+  FaLinkedin,
+} from "react-icons/fa";
+import api from "../service/CustomAxios";
+import isAuthenticated from "../service/Auth";
 
 const DetailEvent = () => {
   const { id } = useParams();
@@ -12,29 +20,29 @@ const DetailEvent = () => {
 
   useEffect(() => {
     if (!isAuthenticated()) {
-      navigate('/login');
+      navigate("/login");
       return;
     }
     const checkRSVP = async () => {
       try {
-        const userId = localStorage.getItem('user_id');
-        const res = await api.get('/rsvps');
+        const userId = localStorage.getItem("user_id");
+        const res = await api.get("/rsvps");
         const alreadyRegistered = res.data.find(
           (rsvp) => String(rsvp.userId) === String(userId) && String(rsvp.eventId) === String(id)
         );
         setIsRegistered(alreadyRegistered);
       } catch (err) {
-        console.error('Error checking RSVP:', err);
+        console.error("Error checking RSVP:", err);
       }
     };
 
     const fetchEvent = async () => {
       try {
-        const res = await api.get(`https://bpwindonesia-be-v2-938071808488.europe-west1.run.app/api/events/${id}`);
+        const res = await api.get(`https://bpwindonesia-be-dot-h-02-451302.et.r.appspot.com/api/events/${id}`);
         setEvent(res.data);
         checkRSVP();
       } catch (err) {
-        console.error('Failed to fetch event:', err);
+        console.error("Failed to fetch event:", err);
       }
     };
     fetchEvent();
@@ -42,15 +50,15 @@ const DetailEvent = () => {
 
   const handleRSVP = async () => {
     try {
-      const userId = localStorage.getItem('user_id');
-      await api.post('/rsvps', {
+      const userId = localStorage.getItem("user_id");
+      await api.post("/rsvps", {
         userId: parseInt(userId),
         eventId: id,
-        status: 'going',
+        status: "going",
       });
-      window.location.href = '/events';
+      window.location.href = "/events";
     } catch (err) {
-      console.error('RSVP error:', err);
+      console.error("RSVP error:", err);
     }
   };
 
@@ -61,11 +69,7 @@ const DetailEvent = () => {
       <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
         {/* Left Section: Image and Description */}
         <div className="md:col-span-2">
-          <img
-            src={event.coverImage}
-            alt="Event Cover"
-            className="w-full h-auto rounded-xl mb-6 object-cover"
-          />
+          <img src={event.coverImage} alt="Event Cover" className="w-full h-auto rounded-xl mb-6 object-cover" />
 
           <div className="mb-8">
             <h2 className="text-xl font-semibold text-[#84281B] mb-2">Deskripsi</h2>
@@ -76,9 +80,7 @@ const DetailEvent = () => {
         {/* Right Section */}
         <div className="space-y-6">
           <div className="bg-white rounded-xl shadow-md p-6 space-y-2">
-            <h1 className="text-xl md:text-2xl font-bold text-gray-800 leading-snug">
-              {event.title}
-            </h1>
+            <h1 className="text-xl md:text-2xl font-bold text-gray-800 leading-snug">{event.title}</h1>
             <p className="text-sm text-gray-500 -mt-1">{event.subTitle}</p>
 
             <div className="flex items-start gap-2 text-sm text-gray-700 mt-4">
@@ -99,7 +101,7 @@ const DetailEvent = () => {
               onClick={handleRSVP}
               disabled={isRegistered}
             >
-              {isRegistered ? 'Sudah Terdaftar' : 'Daftar Sekarang'}
+              {isRegistered ? "Sudah Terdaftar" : "Daftar Sekarang"}
             </button>
           </div>
 

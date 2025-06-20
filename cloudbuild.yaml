@@ -1,0 +1,15 @@
+options:
+  logging: CLOUD_LOGGING_ONLY
+
+steps:
+  # Install dependencies
+  - name: "gcr.io/cloud-builders/npm"
+    args: ["install"]
+
+  # Build project (opsional, jika ada step build)
+  - name: "gcr.io/cloud-builders/npm"
+    args: ["run", "build"]
+
+  # Deploy ke App Engine
+  - name: "gcr.io/cloud-builders/gcloud"
+    args: ["app", "deploy", "app.yaml", "--quiet"]
